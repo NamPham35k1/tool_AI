@@ -6,7 +6,7 @@ interface BrandHeaderProps {
 }
 
 export const BrandHeader: React.FC<BrandHeaderProps> = ({
-  channelName = "CƯỜNG IT",
+  channelName = "Nam IT",
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();

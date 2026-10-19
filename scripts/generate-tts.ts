@@ -108,19 +108,15 @@ export async function generateSpeechToFile(
     volume?: string;
   }
 ): Promise<{ sizeBytes: number; durationSec: number; durationInFrames: number }> {
-  // Dynamically import edge-tts-universal
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const edgeTtsModule: any = await import("edge-tts-universal");
-  const IsomorphicCommunicate =
-    edgeTtsModule.IsomorphicCommunicate ||
-    edgeTtsModule.Communicate ||
-    edgeTtsModule.default?.IsomorphicCommunicate ||
-    edgeTtsModule.default;
-
   const voice = options?.voice || process.env.EDGE_TTS_VOICE || "vi-VN-HoaiMyNeural";
-  const rate = options?.rate || process.env.EDGE_TTS_RATE || "+10%";
-  const pitch = options?.pitch || process.env.EDGE_TTS_PITCH || "+0Hz";
-  const volume = options?.volume || process.env.EDGE_TTS_VOLUME || "+0%";
+  const rateStr = options?.rate || process.env.EDGE_TTS_RATE || "+10%";
+  let speedMultiplier = 1.0;
+  if (rateStr.includes("%")) {
+    const percent = parseFloat(rateStr.replace("%", "").replace("+", ""));
+    if (!isNaN(percent)) {
+      speedMultiplier = Math.max(0.5, Math.min(2.0, 1 + percent / 100));
+    }
+  }
 
   const dir = path.dirname(outputPath);
   if (!fs.existsSync(dir)) {
@@ -130,10 +126,46 @@ export async function generateSpeechToFile(
   let lastError: unknown;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
+      // First try @kirillasyamov/text-to-speech engine
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const ttsPkg: any = await import("@kirillasyamov/text-to-speech");
+        const TextToSpeech = ttsPkg.TextToSpeech || ttsPkg.default;
+        const tts = new TextToSpeech({
+          voice,
+          speed: speedMultiplier,
+        });
+        const audioBuffer = await tts.speak(text);
+        if (audioBuffer && audioBuffer.length > 0) {
+          fs.writeFileSync(outputPath, audioBuffer);
+          const durationSec = estimateMp3Duration(audioBuffer);
+          const durationInFrames = Math.ceil(durationSec * 30) + 10;
+          return {
+            sizeBytes: audioBuffer.length,
+            durationSec: Math.round(durationSec * 100) / 100,
+            durationInFrames,
+          };
+        }
+      } catch (errFirst) {
+        console.warn(`      (Primary TTS engine note: ${(errFirst as Error)?.message || errFirst}, trying fallback...)`);
+      }
+
+      // Fallback: Dynamically import edge-tts-universal
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const edgeTtsModule: any = await import("edge-tts-universal");
+      const IsomorphicCommunicate =
+        edgeTtsModule.IsomorphicCommunicate ||
+        edgeTtsModule.Communicate ||
+        edgeTtsModule.default?.IsomorphicCommunicate ||
+        edgeTtsModule.default;
+
+      const pitch = options?.pitch || process.env.EDGE_TTS_PITCH || "+0Hz";
+      const volume = options?.volume || process.env.EDGE_TTS_VOLUME || "+0%";
+
       const chunks: Buffer[] = [];
       const communicate = new IsomorphicCommunicate(text, {
         voice,
-        rate,
+        rate: rateStr,
         pitch,
         volume,
       });

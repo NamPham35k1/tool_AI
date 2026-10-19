@@ -16,7 +16,10 @@ import { Scene5Benefits } from "./scenes/Scene5Benefits";
 import { Scene6Outro } from "./scenes/Scene6Outro";
 import { BrandHeader } from "./components/BrandHeader";
 
-export const DockerExplainer: React.FC<DockerExplainerProps> = () => {
+export const DockerExplainer: React.FC<DockerExplainerProps> = ({
+  title = "Docker là gì?",
+  subtitle = "Giải thích trong 50 giây",
+}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
@@ -51,7 +54,7 @@ export const DockerExplainer: React.FC<DockerExplainerProps> = () => {
       className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-black font-sans text-white select-none"
     >
       {/* Top Center Channel Brand Header (Safely below platform search bar) */}
-      <BrandHeader channelName="CƯỜNG IT" />
+      <BrandHeader channelName="Nam IT" />
 
       {/* Background Animated Subtle Glows */}
       <div className="absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-sky-600/15 blur-[140px]" />
@@ -62,7 +65,7 @@ export const DockerExplainer: React.FC<DockerExplainerProps> = () => {
       <Series>
         {/* Scene 1: Hook (0s - 5.5s) */}
         <Series.Sequence durationInFrames={d1}>
-          <Scene1Hook />
+          <Scene1Hook title={title} subtitle={subtitle} />
         </Series.Sequence>
 
         {/* Scene 2: Problem (5.5s - 12s) */}

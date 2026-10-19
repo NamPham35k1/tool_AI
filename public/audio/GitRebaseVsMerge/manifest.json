@@ -1,0 +1,65 @@
+{
+  "topic": "GitRebaseVsMerge",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+10%",
+  "totalScenes": 6,
+  "totalDurationFrames": 1161,
+  "totalDurationSec": 38.7,
+  "scenes": [
+    {
+      "id": "scene1_hook",
+      "text": "Bạn phân vân khi nào nên dùng Git Merge và khi nào nên dùng Git Rebase?",
+      "audioPath": "audio/GitRebaseVsMerge/scene1_hook.mp3",
+      "filePath": "D:\\tool\\remotion-cuongit-template\\public\\audio\\GitRebaseVsMerge\\scene1_hook.mp3",
+      "sizeBytes": 25632,
+      "estimatedDurationSec": 4.27,
+      "durationInFrames": 139
+    },
+    {
+      "id": "scene2_problem",
+      "text": "Dùng sai cách có thể biến lịch sử commit của dự án thành một mớ bòng bong rối rắm khó gỡ.",
+      "audioPath": "audio/GitRebaseVsMerge/scene2_problem.mp3",
+      "filePath": "D:\\tool\\remotion-cuongit-template\\public\\audio\\GitRebaseVsMerge\\scene2_problem.mp3",
+      "sizeBytes": 30816,
+      "estimatedDurationSec": 5.14,
+      "durationInFrames": 165
+    },
+    {
+      "id": "scene3_merge",
+      "text": "Git Merge kết hợp hai nhánh và tạo ra một commit gộp mới. An toàn, giữ nguyên lịch sử nhưng cây commit rất cồng kềnh.",
+      "audioPath": "audio/GitRebaseVsMerge/scene3_merge.mp3",
+      "filePath": "D:\\tool\\remotion-cuongit-template\\public\\audio\\GitRebaseVsMerge\\scene3_merge.mp3",
+      "sizeBytes": 44496,
+      "estimatedDurationSec": 7.42,
+      "durationInFrames": 233
+    },
+    {
+      "id": "scene4_rebase",
+      "text": "Trong khi đó, Git Rebase nhấc toàn bộ commit của bạn đặt lên ngọn nhánh chính, tạo ra một đường thẳng tắp cực kỳ sạch sẽ.",
+      "audioPath": "audio/GitRebaseVsMerge/scene4_rebase.mp3",
+      "filePath": "D:\\tool\\remotion-cuongit-template\\public\\audio\\GitRebaseVsMerge\\scene4_rebase.mp3",
+      "sizeBytes": 39312,
+      "estimatedDurationSec": 6.55,
+      "durationInFrames": 207
+    },
+    {
+      "id": "scene5_rules",
+      "text": "Quy tắc vàng: Dùng Rebase cho nhánh cá nhân trước khi tạo PR, và dùng Merge cho các nhánh chung như Main hay Develop.",
+      "audioPath": "audio/GitRebaseVsMerge/scene5_rules.mp3",
+      "filePath": "D:\\tool\\remotion-cuongit-template\\public\\audio\\GitRebaseVsMerge\\scene5_rules.mp3",
+      "sizeBytes": 40032,
+      "estimatedDurationSec": 6.67,
+      "durationInFrames": 211
+    },
+    {
+      "id": "scene6_outro",
+      "text": "Hiểu rõ hai lệnh này sẽ giúp bạn làm việc nhóm chuyên nghiệp hơn. Đừng quên thả tim và follow kênh nhé!",
+      "audioPath": "audio/GitRebaseVsMerge/scene6_outro.mp3",
+      "filePath": "D:\\tool\\remotion-cuongit-template\\public\\audio\\GitRebaseVsMerge\\scene6_outro.mp3",
+      "sizeBytes": 39168,
+      "estimatedDurationSec": 6.53,
+      "durationInFrames": 206
+    }
+  ],
+  "generatedAt": "2026-10-19T09:59:13.561Z"
+}

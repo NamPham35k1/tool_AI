@@ -10,7 +10,15 @@ import {
 } from "remotion";
 import { SubtitleBox } from "../components/SubtitleBox";
 
-export const Scene1Hook: React.FC = () => {
+interface Scene1HookProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export const Scene1Hook: React.FC<Scene1HookProps> = ({
+  title = "Docker là gì?",
+  subtitle = "Tại sao Dev nào cũng bắt buộc phải biết?",
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -103,12 +111,11 @@ export const Scene1Hook: React.FC = () => {
         >
           <h1 className="text-8xl font-black tracking-tight leading-tight">
             <span className="bg-gradient-to-r from-sky-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
-              DOCKER
-            </span>{" "}
-            LÀ GÌ?
+              {title}
+            </span>
           </h1>
           <p className="mt-4 text-4xl font-bold text-slate-200">
-            Tại sao Dev nào cũng bắt buộc phải biết?
+            {subtitle}
           </p>
         </div>
       </div>
